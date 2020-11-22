@@ -5,6 +5,4 @@ export const createLink = (url, name = null) => {
   });
 };
 
-const shorten = (url) => {
-  return `${url.slice(4)}`;
-};
+const shorten = (url) => `http://short-links/${btoa(url).slice(0, 10)}`;

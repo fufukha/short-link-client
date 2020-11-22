@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { createLink } from "../../models/api-mock";
 import CopyButton from "../CopyButton";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
 const UrlShortener = () => {
   const [url, setUrl] = useState("");
@@ -16,8 +18,16 @@ const UrlShortener = () => {
 
   return (
     <div className="UrlShortener">
-      <input value={url} onChange={handleChange} />
-      <button onClick={handleClick}>Shorten</button>
+      <TextField
+        id="outlined-basic"
+        label="Outlined"
+        variant="outlined"
+        value={url}
+        onChange={handleChange}
+      />
+      <Button size="large" color="secondary" onClick={handleClick}>
+        Shorten
+      </Button>
       {shortUrl && (
         <>
           <div>{shortUrl}</div>
