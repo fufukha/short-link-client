@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { gql } from "@apollo/client";
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   uri: "https://bqreu.sse.codesandbox.io/",
   cache: new InMemoryCache()
 });
@@ -20,7 +20,7 @@ export const getLinks = () => {
 };
 
 export const addLink = (name, url) => {
-  return client.mutation({
+  return client.mutate({
     mutation: gql`
       mutation {
         createLink(name: name, url: url) {
@@ -31,3 +31,12 @@ export const addLink = (name, url) => {
     `
   });
 };
+
+export const CREATE_LINK = gql`
+  mutation createLink($name: String, $url: String!) {
+    createLink(name: $name, url: $url) {
+      id
+      type
+    }
+  }
+`;
