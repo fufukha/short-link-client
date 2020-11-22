@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { createLink } from "../../models/api-mock";
+import CopyButton from "../CopyButton";
 
 const UrlShortener = () => {
   const [url, setUrl] = useState("");
@@ -17,7 +18,12 @@ const UrlShortener = () => {
     <div className="UrlShortener">
       <input value={url} onChange={handleChange} />
       <button onClick={handleClick}>Shorten</button>
-      <div>{shortUrl}</div>
+      {shortUrl && (
+        <>
+          <div>{shortUrl}</div>
+          <CopyButton text={shortUrl} />
+        </>
+      )}
     </div>
   );
 };
