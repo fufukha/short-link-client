@@ -1,13 +1,12 @@
-import React, { useState } from "react";
-import { CREATE_LINK } from "../../models/api";
-import { gql, useMutation } from "@apollo/client";
+import React, { useState, useEffect } from "react";
+import { createLink } from "../../models/api-mock";
 
 const UrlShortener = () => {
   const [url, setUrl] = useState("");
-  const [createLink, { linkData }] = useMutation(CREATE_LINK);
+  const [shortUrl, setShortUrl] = useState("");
 
   const handleClick = (e) => {
-    createLink({ variables: { url: url } });
+    createLink(url).then(({ shortUrl }) => setShortUrl(shortUrl));
   };
 
   const handleChange = (e) => {
@@ -18,6 +17,7 @@ const UrlShortener = () => {
     <div className="UrlShortener">
       <input value={url} onChange={handleChange} />
       <button onClick={handleClick}>Shorten</button>
+      <div>{shortUrl}</div>
     </div>
   );
 };
