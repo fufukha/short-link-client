@@ -5,7 +5,7 @@ import {
 } from '@apollo/client';
 
 export const client = new ApolloClient({
-  uri: "https://bqreu.sse.codesandbox.io/",
+  uri: "https://j7mzr.sse.codesandbox.io/",
   cache: new InMemoryCache()
 });
 
@@ -24,6 +24,7 @@ export const CREATE_LINK = gql`
       id
       name
       url
+      slug
     }
   }
 `

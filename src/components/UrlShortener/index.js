@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { createLink } from "../../models/api-mock";
+import { useMutation } from '@apollo/client'
+import { CREATE_LINK } from "../../models/api";
 import CopyButton from "../CopyButton";
 import {
   Button,
   TextField,
   Grid,
   Box,
+  CircularProgress,
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/styles'
 
@@ -22,28 +24,37 @@ const useStyles = makeStyles(theme => ({
     margin: '20px auto',
     width: '100%',
   },
+  copyContent: {
+    display: 'flex',
+    justifyContent: 'center',
+    margin: '20px auto',
+    width: '100%',
+  },
 }))
 
-
-
 const UrlShortener = () => {
-  const [url, setUrl] = useState("");
-  const [shortUrl, setShortUrl] = useState("");
+  const [url, setUrl] = useState('');
+  const [shortUrl, setShortUrl] = useState('');
+  const [createLink, { data, loading, error }] = useMutation(CREATE_LINK, {
+    onCompleted: ({ createLink }) => {
+      setShortUrl(`http://short-links/${createLink.slug}`)
+    }
+  })
 
-  const handleClick = (e) => {
-    createLink(url).then(({ shortUrl }) => setShortUrl(shortUrl));
-  };
+  const handleClick = () => {
+    createLink({
+      variables: { url, name: '' }
+    })
+    setUrl('')
+  }
 
-  const handleChange = (e) => {
-    setUrl(e.target.value);
-  };
+  const handleChange = e => setUrl(e.target.value);
 
   const classes = useStyles()
   const inputProps = {
       label: 'Place URL here',
       'aria-label': 'Place URL here'
     }
-
 
   return (
     <Grid container justify="space-around" spacing={1}>
@@ -72,6 +83,13 @@ const UrlShortener = () => {
           Shorten
         </Button>
       </Grid>
+      {error && <p>error.message</p>}
+      {loading && (
+        <Box className={classes.contentLoader}>
+          <CircularProgress color="primary"/>
+        </Box>
+
+      )}
       {shortUrl && (
         <Box className={classes.copyContent}>
           <CopyButton text={shortUrl} />
