@@ -5,6 +5,7 @@ import {
   Button,
   TextField,
   Grid,
+  Box,
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/styles'
 
@@ -13,7 +14,14 @@ const useStyles = makeStyles(theme => ({
     '& .MuiOutlinedInput-root fieldset': {
       borderWidth: '2px',
     }
-  }
+  },
+  button: {
+    height: '52px',
+  },
+  copyContent: {
+    margin: '20px auto',
+    width: '100%',
+  },
 }))
 
 
@@ -55,6 +63,7 @@ const UrlShortener = () => {
       </Grid>
       <Grid item xs={12}>
         <Button
+          className={classes.button}
           variant="contained"
           fullWidth
           size="large"
@@ -64,10 +73,9 @@ const UrlShortener = () => {
         </Button>
       </Grid>
       {shortUrl && (
-        <>
-          <div>{shortUrl}</div>
+        <Box className={classes.copyContent}>
           <CopyButton text={shortUrl} />
-        </>
+        </Box>
       )}
     </Grid>
   );
