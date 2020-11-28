@@ -25,14 +25,14 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const CopyButton = ({ text }) => {
-  const [isCopied, setIsCopied] = useState(false);
+  const [, setIsCopied] = useState(false);
 
   const classes = useStyles()
 
   return (
     <Card className={classes.root} elevation={3}>
       <CardContent>
-        <Typography component="span" fullWidth variant="body1">
+        <Typography component="span" variant="body1">
           <Link className={classes.link} styles={{color: 'black'}}>
             {text}
           </Link>
@@ -41,7 +41,6 @@ const CopyButton = ({ text }) => {
       <CardActions className={classes.actions}>
         <CopyToClipboard text={text} onCopy={() => setIsCopied(true)}>
           <Button
-            color="#000000"
             variant="text"
           >
             Copy
