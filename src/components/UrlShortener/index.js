@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 const UrlShortener = () => {
   const [url, setUrl] = useState('');
   const [shortUrl, setShortUrl] = useState('');
-  const [createLink, { data, loading, error }] = useMutation(CREATE_LINK, {
+  const [createLink, { loading, error }] = useMutation(CREATE_LINK, {
     onCompleted: ({ createLink }) => {
       setShortUrl(`http://short-links/${createLink.slug}`)
     }
