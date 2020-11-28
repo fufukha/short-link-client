@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     margin: '20px auto',
     width: '100%',
   },
-  copyContent: {
+  loader: {
     display: 'flex',
     justifyContent: 'center',
     margin: '20px auto',
@@ -85,7 +85,7 @@ const UrlShortener = () => {
       </Grid>
       {error && <p>error.message</p>}
       {loading && (
-        <Box className={classes.contentLoader}>
+        <Box className={classes.loader}>
           <CircularProgress color="primary"/>
         </Box>
 
