@@ -1,8 +1,6 @@
 import React from "react";
 import "./styles.css";
 import UrlShortener from "./components/UrlShortener";
-import { ApolloProvider } from "@apollo/client";
-import { client } from "./models/api";
 import { Typography, Container, Box, CssBaseline } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles'
 
@@ -33,7 +31,7 @@ export default function App() {
   const classes = useStyles()
   const containerWidth = 'xs'
   return (
-    <ApolloProvider client={client}>
+    <>
       <CssBaseline />
       <Box component='main' height='100%' className={classes.main}>
         <Box component='section' className={classes.hero}>
@@ -50,6 +48,6 @@ export default function App() {
           <UrlShortener />
         </Container>
       </Box>
-    </ApolloProvider>
+    </>
   );
 }
