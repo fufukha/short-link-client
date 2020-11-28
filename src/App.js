@@ -23,12 +23,15 @@ const useStyles = makeStyles(theme => ({
     fontSize: '20px',
     fontWeight: 500,
   },
+  content: {
+    padding: '20px 0'
+  }
 }))
 
 
 export default function App() {
   const classes = useStyles()
-  const containerWidth = 'sm'
+  const containerWidth = 'xs'
   return (
     <ApolloProvider client={client}>
       <CssBaseline />
@@ -38,12 +41,12 @@ export default function App() {
             <Typography variant='h1' className={classes.title}>
               snipper
             </Typography>
-            <Typography variant='subtitle1' className={classes.subtitle}>
+            <Typography variant='h2' className={classes.subtitle}>
               {'a URL shortener tool for branding'}
             </Typography>
           </Container>
         </Box>
-        <Container maxWidth={containerWidth} className="App">
+        <Container component='section' maxWidth={containerWidth} className={classes.content}>
           <UrlShortener />
         </Container>
       </Box>
