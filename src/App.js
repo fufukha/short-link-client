@@ -3,15 +3,50 @@ import "./styles.css";
 import UrlShortener from "./components/UrlShortener";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "./models/api";
-import Container from "@material-ui/core/Container";
+import { Typography, Container, Box, CssBaseline } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles'
+
+const useStyles = makeStyles(theme => ({
+  main: {
+    padding: 0,
+    margin: 0,
+  },
+  hero: {
+    backgroundColor: theme.palette.primary.main,
+    padding: '50px 0 100px',
+  },
+  title: {
+    fontSize: '70px',
+    fontWeight: 500,
+  },
+  subtitle: {
+    fontSize: '20px',
+    fontWeight: 500,
+  },
+}))
+
 
 export default function App() {
+  const classes = useStyles()
+  const containerWidth = 'sm'
   return (
     <ApolloProvider client={client}>
-      <Container maxWidth="sm" className="App">
-        <h1>Shorten your link</h1>
-        <UrlShortener />
-      </Container>
+      <CssBaseline />
+      <Box component='main' height='100%' className={classes.main}>
+        <Box component='section' className={classes.hero}>
+          <Container color='primary' maxWidth={containerWidth}>
+            <Typography variant='h1' className={classes.title}>
+              snipper
+            </Typography>
+            <Typography variant='subtitle1' className={classes.subtitle}>
+              {'a URL shortener tool for branding'}
+            </Typography>
+          </Container>
+        </Box>
+        <Container maxWidth={containerWidth} className="App">
+          <UrlShortener />
+        </Container>
+      </Box>
     </ApolloProvider>
   );
 }
