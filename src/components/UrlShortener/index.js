@@ -35,6 +35,7 @@ const useStyles = makeStyles(theme => ({
 const UrlShortener = () => {
   const [url, setUrl] = useState('');
   const [shortUrl, setShortUrl] = useState('');
+  const [alias, setAlias] = useState("")
   const [createLink, { loading, error }] = useMutation(CREATE_LINK, {
     onCompleted: ({ createLink }) => {
       setShortUrl(`http://short-links/${createLink.slug}`)
@@ -43,21 +44,28 @@ const UrlShortener = () => {
 
   const handleClick = () => {
     createLink({
-      variables: { url, name: '' }
+      variables: { url, name: '', slug: alias }
     })
     setUrl('')
+    setAlias('')
   }
 
-  const handleChange = e => setUrl(e.target.value);
+  const handleUrl = e => setUrl(e.target.value);
+  const handleAlias = e => setAlias(e.target.value);
 
   const classes = useStyles()
-  const inputProps = {
-      label: 'Place URL here',
-      'aria-label': 'Place URL here'
-    }
+  const urlProps = {
+    label: 'Place URL here',
+    'aria-label': 'Place URL here',
+  }
+
+  const slugProps = {
+    label: 'Place custom URL name',
+    'aria-label': 'Place custom URL name',
+  }
 
   return (
-    <Grid container justify="space-around" spacing={1}>
+    <Grid container justify="space-around" spacing={3}>
       <Grid item xs={12}>
         <TextField
           className={classes.textField}
@@ -65,11 +73,27 @@ const UrlShortener = () => {
           fullWidth
           type="text"
           required
-          label="Place URL here"
+          label="Required"
           placeholder="Place URL here"
-          inputProps={inputProps}
+          inputProps={urlProps}
+          InputLabelProps={{shrink: true}}
           value={url}
-          onChange={handleChange}
+          onChange={handleUrl}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextField
+          className={classes.textField}
+          variant="outlined"
+          fullWidth
+          type="text"
+          required={false}
+          label="Custom alias (optional)"
+          placeholder="Place alias here"
+          inputProps={slugProps}
+          InputLabelProps={{shrink: true}}
+          value={alias}
+          onChange={handleAlias}
         />
       </Grid>
       <Grid item xs={12}>

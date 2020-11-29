@@ -19,8 +19,8 @@ export const LINKS = gql`
 `
 
 export const CREATE_LINK = gql`
-  mutation CreateLink($name: String!, $url: String!) {
-    createLink(name: $name, url: $url) {
+  mutation CreateLink($name: String!, $url: String!, $slug: String!) {
+    createLink(name: $name, url: $url, slug: $slug) {
       id
       name
       url
