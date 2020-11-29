@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useMutation } from '@apollo/client'
 import { CREATE_LINK } from "../../models/api";
 import CopyButton from "../CopyButton";
@@ -36,6 +36,7 @@ const UrlShortener = () => {
   const [url, setUrl] = useState('');
   const [shortUrl, setShortUrl] = useState('');
   const [alias, setAlias] = useState("")
+
   const [createLink, { loading, error }] = useMutation(CREATE_LINK, {
     onCompleted: ({ createLink }) => {
       setShortUrl(`http://short-links/${createLink.slug}`)
@@ -52,6 +53,16 @@ const UrlShortener = () => {
 
   const handleUrl = e => setUrl(e.target.value);
   const handleAlias = e => setAlias(e.target.value);
+
+  const urlCard = useRef(null)
+
+  useEffect(() => {
+    if(shortUrl && urlCard.current) {
+      urlCard.current.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  })
 
   const classes = useStyles()
   const urlProps = {
@@ -115,7 +126,7 @@ const UrlShortener = () => {
 
       )}
       {shortUrl && (
-        <Box className={classes.copyContent}>
+        <Box className={classes.copyContent} ref={urlCard}>
           <CopyButton text={shortUrl} />
         </Box>
       )}
