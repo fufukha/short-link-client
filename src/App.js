@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 500,
   },
   content: {
-    padding: '20px 0'
+    padding: '50px 0'
   }
 }))
 
@@ -35,7 +35,7 @@ export default function App() {
       <CssBaseline />
       <Box component='main' height='100%' className={classes.main}>
         <Box component='section' className={classes.hero}>
-          <Container color='primary' maxWidth={containerWidth}>
+          <Container color='primary' maxWidth='md'>
             <Typography variant='h1' className={classes.title}>
               snipper
             </Typography>
@@ -44,7 +44,7 @@ export default function App() {
             </Typography>
           </Container>
         </Box>
-        <Container component='section' maxWidth={containerWidth} className={classes.content}>
+        <Container component='section' maxWidth='xs' className={classes.content}>
           <UrlShortener />
         </Container>
       </Box>
