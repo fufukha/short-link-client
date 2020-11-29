@@ -13,8 +13,8 @@ import { makeStyles } from '@material-ui/styles';
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
-    alignItems: 'center',
     justifyContent: 'space-between',
+    alignItems: 'center',
     width: '100%',
     margin: '0 auto',
     padding: '20px 0',
@@ -22,24 +22,38 @@ const useStyles = makeStyles(theme => ({
   link: {
     color: 'black',
   },
+  name: {
+    marginBottom: 20,
+    width: '100%',
+    alignSelf: 'stretch',
+  },
+  actions: {
+    alignSelf: 'flex-end',
+  },
 }))
 
-const CopyButton = ({ text }) => {
+const CopyButton = ({ url, name }) => {
   const [, setIsCopied] = useState(false);
+  console.log('name', name)
 
   const classes = useStyles()
 
   return (
     <Card className={classes.root} elevation={3}>
       <CardContent>
+        {name && (
+          <Typography component='h3' variant="h6" className={classes.name}>
+            {name}
+          </Typography>
+        )}
         <Typography component="span" variant="body1">
           <Link className={classes.link} styles={{color: 'black'}}>
-            {text}
+            {url}
           </Link>
         </Typography>
       </CardContent>
       <CardActions className={classes.actions}>
-        <CopyToClipboard text={text} onCopy={() => setIsCopied(true)}>
+        <CopyToClipboard text={url} onCopy={() => setIsCopied(true)}>
           <Button
             variant="text"
           >
