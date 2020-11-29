@@ -54,11 +54,11 @@ const UrlShortener = () => {
   const handleUrl = e => setUrl(e.target.value);
   const handleAlias = e => setAlias(e.target.value);
 
-  const urlCard = useRef(null)
+  const shortUrlCard = useRef(null)
 
   useEffect(() => {
-    if(shortUrl && urlCard.current) {
-      urlCard.current.scrollIntoView({
+    if(shortUrl && shortUrlCard.current) {
+      shortUrlCard.current.scrollIntoView({
         behavior: "smooth",
       });
     }
@@ -126,7 +126,7 @@ const UrlShortener = () => {
 
       )}
       {shortUrl && (
-        <Box className={classes.copyContent} ref={urlCard}>
+        <Box className={classes.copyContent} ref={shortUrlCard}>
           <CopyButton text={shortUrl} />
         </Box>
       )}
