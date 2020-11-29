@@ -38,6 +38,7 @@ const UrlShortener = () => {
   const [alias, setAlias] = useState("")
   const [name, setName] = useState('')
   const [urlName, setUrlName] = useState('')
+  const [isError, setIsError] = useState(false)
 
   const [createLink, { loading, error }] = useMutation(CREATE_LINK, {
     onCompleted: ({ createLink }) => {
@@ -50,12 +51,17 @@ const UrlShortener = () => {
   })
 
   const handleClick = () => {
-    createLink({
-      variables: { url, name: urlName, slug: alias }
-    })
-    setUrl('')
-    setAlias('')
-    setUrlName('')
+    if(!url) {
+      setIsError(true)
+    } else {
+      setIsError(false)
+      createLink({
+        variables: { url, name: urlName, slug: alias }
+      })
+      setUrl('')
+      setAlias('')
+      setUrlName('')
+    }
   }
 
   const handleChange = (e, type) => {
@@ -87,6 +93,7 @@ const UrlShortener = () => {
         <TextField
           className={classes.textField}
           variant="outlined"
+          error={isError}
           fullWidth
           type="text"
           required
