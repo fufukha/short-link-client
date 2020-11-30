@@ -83,9 +83,8 @@ const UrlShortener = () => {
 
   const classes = useStyles()
   const urlLabel = 'Place URL here'
-  const slugLabel = 'Place URL here'
+  const slugLabel = 'Place custom alias here'
   const nameLabel= 'Name your URL'
-  const urlNameLabel= 'Name your URL'
 
   return (
     <Grid container justify="space-around" spacing={3}>
