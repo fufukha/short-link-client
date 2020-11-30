@@ -47,7 +47,7 @@ const CopyButton = ({ url, name }) => {
           </Typography>
         )}
         <Typography component="span" variant="body1">
-          <Link className={classes.link} styles={{color: 'black'}}>
+          <Link className={classes.link} data-testid="shortLinkAddress" styles={{color: 'black'}}>
             {url}
           </Link>
         </Typography>
