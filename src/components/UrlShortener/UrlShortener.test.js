@@ -1,5 +1,6 @@
 import React from "react";
 import { render, fireEvent, waitFor } from '@testing-library/react'
+import '@testing-library/jest-dom'
 import UrlShortener from './index'
 import { ThemeProvider } from '@material-ui/core/styles'
 import theme from '../../theme'
@@ -36,7 +37,6 @@ it('UrlShortener component renders loading state initially', () => {
       result: { data: { createLink } },
     },
   ]
-
 
   const { getByText, getByLabelText, getByRole } = render(component(mocks))
 
@@ -81,10 +81,14 @@ it('UrlShortener component renders create link & give visual feedback',
     });
 })
 
-// it('UrlShortener component renders error when url is not submitted',
-//   const { getByText, getByLabelText, getByTestId } = render(component([]))
-//
-//   fireEvent.change(input, { target: { value: url }})
-//   fireEvent.click(button)
-//
-// })
+it('UrlShortener component renders error when url is not submitted', () => {
+  const { getByText, getByLabelText, getByRole } = render(component([]))
+
+  const input = getByLabelText('Place URL here')
+  const button = getByText('Shorten')
+
+  fireEvent.change(input, { target: { value: "" }})
+  fireEvent.click(button)
+
+  expect(input).toBeInvalid()
+})
