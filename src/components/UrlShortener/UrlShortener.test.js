@@ -49,7 +49,7 @@ it('UrlShortener component renders loading state initially', () => {
   getByRole('progressbar')
 })
 
-it('UrlShortener component renders create link & give visual feedback',
+it('UrlShortener component renders response error & give visual feedback',
   async () => {
     let createLinkCalled = false
     const createLink =  { id: 1, name: "", url, slug: "dXJsLmNvbQ"}
@@ -77,7 +77,38 @@ it('UrlShortener component renders create link & give visual feedback',
     waitFor(() => {
       new Promise(resolve => setTimeout(resolve, 0))
       expect(createLinkCalled).toBe(true)
-      getByTestId("shortLinkAddress")
+      getByTestId("errorResponse")
+    });
+})
+
+it('UrlShortener component renders create link & give visual feedback',
+  async () => {
+    let createLinkCalled = false
+    const createLink =  { id: 1, name: "", url, slug: "dXJsLmNvbQ"}
+    const mocks = [
+      {
+        request: {
+          query: CREATE_LINK,
+          variables: { url, name: "", slug:"" }
+        },
+        result: () => {
+          createLinkCalled = false;
+          return { data: { }  }
+        },
+      },
+    ]
+
+    const { getByText, getByLabelText, getByTestId } = render(component(mocks))
+
+    const input = getByLabelText('Place URL here')
+    const button = getByText('Shorten')
+
+    fireEvent.change(input, { target: { value: url }})
+    fireEvent.click(button)
+
+    waitFor(() => {
+      new Promise(resolve => setTimeout(resolve, 0))
+      expect(createLinkCalled).toBe(false)
     });
 })
 

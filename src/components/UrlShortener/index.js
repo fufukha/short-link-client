@@ -148,7 +148,7 @@ const UrlShortener = () => {
           </Grid>
         </Grid>
       </form>
-      {error && <p>error.message</p>}
+      {error && <p data-testid={'errorResponse'}>error.message</p>}
       {loading && (
         <Box className={classes.loader}>
           <CircularProgress color="primary"/>
