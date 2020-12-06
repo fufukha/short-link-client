@@ -1,5 +1,6 @@
 # short-link-client
-Simple mock app that for URL shortening
+Simple mock app that for URL shortening.
+
 Created with CodeSandbox
 [Go to CodeSandbox](https://codesandbox.io/s/flamboyant-mclaren-qukd7)
 
