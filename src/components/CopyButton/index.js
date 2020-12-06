@@ -34,7 +34,6 @@ const useStyles = makeStyles(theme => ({
 
 const CopyButton = ({ url, name }) => {
   const [, setIsCopied] = useState(false);
-  console.log('name', name)
 
   const classes = useStyles()
 
