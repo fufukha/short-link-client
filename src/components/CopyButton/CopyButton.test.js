@@ -1,17 +1,13 @@
 import React from "react";
 import { render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import { mount } from 'jest'
 import CopyButton from './index'
-import { CopyToClipboard } from "react-copy-to-clipboard";
 import { ThemeProvider } from '@material-ui/core/styles'
 import theme from '../../theme'
 
-const component = (onClick) => (
+const component = () => (
   <ThemeProvider theme={theme}>
-    <CopyToClipboard data-testid={'copyBtn'} onCopy={onClick}>
-      <CopyButton url={'url.com'} name={'Hello'} />
-    </CopyToClipboard>
+    <CopyButton url={'url.com'} name={'Hello'}/>
   </ThemeProvider>
 )
 
@@ -21,4 +17,14 @@ it('CopyButton component renders without crashing', () => {
   getByText('Hello')
   getByText('url.com')
   getByText('Copy')
+});
+
+it('CopyButton component calls clipboard.writeText on click', () => {
+  const { getByText } = render(component())
+  navigator.clipboard = { writeText: jest.fn() }
+  const button = getByText('Copy')
+
+  fireEvent.click(button)
+
+  expect(navigator.clipboard.writeText).toHaveBeenCalled()
 });
