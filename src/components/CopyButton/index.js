@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { CopyToClipboard } from "react-copy-to-clipboard";
 import {
   Button,
   Typography,
@@ -33,7 +32,20 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const CopyButton = ({ url, name }) => {
-  const [, setIsCopied] = useState(false);
+  const [ isDisabled, setIsDisabled ] = useState(false)
+
+  const handleClick = async () => {
+    if (!navigator.clipboard) {
+      setIsDisabled(true)
+      return
+    }
+    try {
+      await navigator.clipboard.writeText(url)
+    } catch (err) {
+      console.error('Failed to copy!', err)
+      setIsDisabled(true)
+    }
+  }
 
   const classes = useStyles()
 
@@ -52,13 +64,13 @@ const CopyButton = ({ url, name }) => {
         </Typography>
       </CardContent>
       <CardActions className={classes.actions}>
-        <CopyToClipboard text={url} onCopy={() => setIsCopied(true)}>
-          <Button
-            variant="text"
-          >
-            Copy
-          </Button>
-        </CopyToClipboard>
+        <Button
+          variant="text"
+          disabled={isDisabled}
+          onClick={handleClick}
+        >
+          Copy
+        </Button>
       </CardActions>
     </Card>
   );
