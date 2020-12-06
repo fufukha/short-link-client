@@ -17,6 +17,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     margin: '0 auto',
     padding: '20px 0',
+    position: 'relative',
   },
   link: {
     color: 'black',
@@ -29,10 +30,16 @@ const useStyles = makeStyles(theme => ({
   actions: {
     alignSelf: 'flex-end',
   },
+  errorMsg: {
+    position: 'absolute',
+    bottom: '23px',
+    right: '17px'
+  }
 }))
 
 const CopyButton = ({ url, name }) => {
   const [ isDisabled, setIsDisabled ] = useState(false)
+  const [ isError, setIsError ] = useState(false)
 
   const handleClick = async () => {
     if (!navigator.clipboard) {
@@ -71,6 +78,9 @@ const CopyButton = ({ url, name }) => {
         >
           Copy
         </Button>
+        { isError && (
+          <Typography className={classes.errorMsg} data-testid="copyErr" color="error" variant="caption">Error</Typography>
+        )}
       </CardActions>
     </Card>
   );

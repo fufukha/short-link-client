@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent } from '@testing-library/react'
+import { render, fireEvent, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import CopyButton from './index'
 import { ThemeProvider } from '@material-ui/core/styles'
@@ -27,4 +27,16 @@ it('CopyButton component calls clipboard.writeText on click', () => {
   fireEvent.click(button)
 
   expect(navigator.clipboard.writeText).toHaveBeenCalled()
+});
+
+it('CopyButton component renders error feedback when error is caught', async () => {
+  const { getByTestId } = render(component())
+  navigator.clipboard = { writeText: jest.fn() }
+
+  try {
+    await navigator.clipboard.writeText()
+  } catch (e) {
+    expect(navigator.clipboard.writeText).toHaveBeenCalled()
+    getByTestId('Error')
+  }
 });
